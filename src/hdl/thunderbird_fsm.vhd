@@ -97,14 +97,14 @@ entity thunderbird_fsm is
 architecture thunderbird_fsm_arch of thunderbird_fsm is 
     signal s_Q : std_logic_vector (2 downto 0) := "000";
     signal s_Q_next : std_logic_vector (2 downto 0) := "000";
--- CONSTANTS ------------------------------------------------------------------
-  
+    
+-- CONSTANTS ------------------------------------------------------------------  
 begin
 
     -- next state
     s_Q_next(0) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and i_left and (not i_right)) or
-                   ((not s_Q(2)) and s_Q(1) and s_Q(0)) or
-                   (s_Q(2) and (not s_Q(1)) and s_Q(0)) or
+                   ((not s_Q(2)) and s_Q(1) and s_Q(0) and i_left and i_right) or
+                   ((not s_Q(2)) and s_Q(1) and (not s_Q(0))) or
                    (s_Q(2) and s_Q(1) and (not s_Q(0)));
                    
     s_Q_next(1) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and (not i_left) and i_right) or
@@ -113,29 +113,29 @@ begin
                    (s_Q(2) and s_Q(1) and (not s_Q(0)));    
                                   
     s_Q_next(2) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and i_left and (not i_right)) or
-                   ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and i_left and i_right) or
-                   ((not s_Q(2)) and s_Q(1) and (not s_Q(0))) or
+                   ((not s_Q(2)) and s_Q(1) and s_Q(0)) or
+                   (s_Q(2) and (not s_Q(1)) and s_Q(0)) or
                    (s_Q(2) and s_Q(1) and (not s_Q(0)));                   
 
 	-- CONCURRENT STATEMENTS --------------------------------------------------------	
 	--output
-	o_lights_L(0) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+	o_lights_L(0) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
 	                 (s_Q(2) and (not s_Q(1)) and s_Q(0)) or
 	                 (s_Q(2) and s_Q(1) and (not s_Q(0))) or
 	                 (s_Q(2) and s_Q(1) and s_Q(0));
-	o_lights_L(1) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+	o_lights_L(1) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
                      (s_Q(2) and s_Q(1) and (not s_Q(0))) or
                      (s_Q(2) and s_Q(1) and s_Q(0));
-    o_lights_L(2) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+    o_lights_L(2) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
                      (s_Q(2) and s_Q(1) and s_Q(0));   
-    o_lights_R(0) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+    o_lights_R(0) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
                      ((not s_Q(2)) and s_Q(1) and (not s_Q(0))) or
                      ((not s_Q(2)) and s_Q(1) and s_Q(0)) or
                      (s_Q(2) and (not s_Q(1)) and (not s_Q(0)));
-    o_lights_R(1) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+    o_lights_R(1) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
                      ((not s_Q(2)) and s_Q(1) and s_Q(0)) or
                      (s_Q(2) and (not s_Q(1)) and (not s_Q(0)));
-    o_lights_R(2) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0))) or
+    o_lights_R(2) <= ((not s_Q(2)) and (not s_Q(1)) and s_Q(0)) or
                      (s_Q(2) and (not s_Q(1)) and (not s_Q(0)));
                                           
     ---------------------------------------------------------------------------------
