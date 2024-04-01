@@ -103,7 +103,7 @@ begin
 
     -- next state
     s_Q_next(0) <= ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and i_left and (not i_right)) or
-                   ((not s_Q(2)) and s_Q(1) and s_Q(0) and i_left and i_right) or
+                   ((not s_Q(2)) and (not s_Q(1)) and (not s_Q(0)) and i_left and i_right) or
                    ((not s_Q(2)) and s_Q(1) and (not s_Q(0))) or
                    (s_Q(2) and s_Q(1) and (not s_Q(0)));
                    
@@ -145,11 +145,11 @@ begin
     register_proc :process(i_clk, i_reset)
     begin
         if i_reset = '1' then
-            s_Q <= (others => '0');
+            s_Q <= "000";
         elsif rising_edge(i_clk) then
             s_Q <= s_Q_next;
         end if;
-    end process;
+    end process register_proc;
 
 		  
 end thunderbird_fsm_arch;
