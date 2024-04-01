@@ -95,7 +95,7 @@ architecture top_basys3_arch of top_basys3 is
           );
       end component thunderbird_fsm;
     component clock_divider is
-        generic ( constant k_DIV : natural := 2    ); -- How many clk cycles until slow clock toggles
+        generic ( constant k_DIV : natural := 25    ); -- How many clk cycles until slow clock toggles
                                                          -- Effectively, you divide the clk double this                                           -- number (e.g., k_DIV := 2 --> clock divider of 4)
              port ( i_clk    : in std_logic;
                     i_reset  : in std_logic;           -- asynchronous
